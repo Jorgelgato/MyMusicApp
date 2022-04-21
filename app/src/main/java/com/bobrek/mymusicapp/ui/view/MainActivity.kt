@@ -107,4 +107,9 @@ class MainActivity : AppCompatActivity() {
         SpotifyConstants.TOKEN = accessToken
         return true
     }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, 0)
+    }
 }
