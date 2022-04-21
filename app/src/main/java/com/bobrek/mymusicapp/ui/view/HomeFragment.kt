@@ -1,20 +1,52 @@
 package com.bobrek.mymusicapp.ui.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bobrek.mymusicapp.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bobrek.mymusicapp.databinding.FragmentHomeBinding
+import com.bobrek.mymusicapp.domain.model.Playlist
+import com.bobrek.mymusicapp.ui.view.adapter.PlaylistAdapter
+import com.bobrek.mymusicapp.ui.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    private lateinit var binding: FragmentHomeBinding
+    private val homeViewModel: HomeViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        homeViewModel.getPlaylists()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        homeViewModel.playlistModel.observe(this) {
+            initRecyclerView(it)
+        }
+    }
+
+    private fun initRecyclerView(list: List<Playlist>) {
+        binding.recyclerPlaylists.layoutManager = LinearLayoutManager(context)
+        binding.recyclerPlaylists.adapter = PlaylistAdapter(list) { onPlaylistClicked(it) }
+    }
+
+    private fun onPlaylistClicked(playlist: Playlist) {
+        //TODO start playing
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 }
