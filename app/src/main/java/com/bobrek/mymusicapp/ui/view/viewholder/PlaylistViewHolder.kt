@@ -1,4 +1,4 @@
-package com.bobrek.mymusicapp.ui.view.adapter
+package com.bobrek.mymusicapp.ui.view.viewholder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

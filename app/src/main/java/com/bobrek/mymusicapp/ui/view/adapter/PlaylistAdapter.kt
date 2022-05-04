@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bobrek.mymusicapp.R
 import com.bobrek.mymusicapp.domain.model.Playlist
+import com.bobrek.mymusicapp.ui.view.viewholder.PlaylistViewHolder
 
 class PlaylistAdapter(
     private val playlistList: List<Playlist>,
     private val onClickListener: (Playlist) -> Unit
-) :
-    RecyclerView.Adapter<PlaylistViewHolder>() {
+) : RecyclerView.Adapter<PlaylistViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
